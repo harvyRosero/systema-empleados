@@ -1,5 +1,5 @@
 <?php
-    require 'conexion.php';
+    require '../models/conexion.php';
 
     $id = $mysqli->real_escape_string($_GET['id']);
     $sql = "SELECT nombre, apellido, cedula, fecha_de_nacimiento, ingreso FROM empleados WHERE id=$id LIMIT 1";
@@ -23,7 +23,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
 
     <title>app web php</title>
     </head>
@@ -33,11 +33,11 @@
     <div class="container" >
 
     <div class="text-center" >
-        <h1>Reportar salida</h1>
+        <h1>Empleados</h1>
     </div>
     <div class="formulario" >
 
-    <form id="registro" name="registro" METHOD="POST" ACTION="reporte_out.php"
+    <form id="registro" name="registro" METHOD="POST" ACTION="../controllers/reporte.php"
     autocomplete="off"
     >
 
@@ -86,7 +86,7 @@
     </form>
     
     <div class="boton" >
-        <a class="btn btn-dark w-100" href="index.php"> Cancelar</a>
+        <a class="btn btn-dark w-100" href="../index.php"> Cancelar</a>
     </div>
 
     </div>

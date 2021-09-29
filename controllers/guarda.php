@@ -1,5 +1,5 @@
 <?php 
-    require 'conexion.php';
+    require '../models/conexion.php';
 
     $nombre = $mysqli->real_escape_string($_POST['nombre']);
     $apellido = $mysqli->real_escape_string($_POST['apellido']);
@@ -14,10 +14,9 @@
 
     if($resultado > 0){
         echo 'SE HA GUARDADO CON EXITO';
-        echo "<br/> <a href='index.php' class='btn btn-success mt-1 mb-3'>Ver cambios</a>";
+        echo "<br/> <a href='../index.php' class='btn btn-success mt-1 mb-3'>Ver cambios</a>";
     }else{
         echo 'ERROR AL AGREGAR';
-        echo "<br/> <a href='index.php' class='btn btn-success mt-1 mb-3'>Volver</a>";
+        echo "<br/> <a href='../index.php' class='btn btn-success mt-1 mb-3'>Volver</a>";
     }
 ?>
-

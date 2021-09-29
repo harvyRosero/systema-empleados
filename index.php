@@ -1,5 +1,5 @@
 <?php 
-    require 'conexion.php';
+    require 'models/conexion.php';
     $sql = "SELECT id, nombre, apellido, ingreso, cedula FROM empleados WHERE estado=1 ";
     $result = $mysqli->query($sql);
 
@@ -23,7 +23,6 @@
     <script src="js/bootstrap.min.js"></script>
     <script src="js/jquery.dataTables.min.js"></script>
 
-
     <title>app web php</title>
 
     <script>
@@ -45,7 +44,7 @@
     </div>
 
     <div class="boton" >
-        <a href="nuevo.php" class="btn btn-success mt-1 mb-3" center>Registrarse</a>
+        <a href="view/nuevo.php" class="btn btn-success mt-1 mb-3" center>Registrarse</a>
     </div>
     
 
@@ -69,10 +68,10 @@
                 <td><?php echo $fila['apellido']; ?> </td>
                 <td><?php echo $fila['ingreso']; ?> </td>
                 <td><?php echo $dia ?> </td>
-                <td><a href="reportarse.php?id=<?php echo $fila['id']; ?>" class="btn btn-dark">Marcar Ingreso</a> </td>
-                <td><a href="reportar_salida.php?id=<?php echo $fila['id']; ?>" class="btn btn-dark">Marcar Salida</a> </td>
-                <td><a href="editar.php?id=<?php echo $fila['id']; ?>" class="btn btn-warning">Editar</a> </td>
-                <td><a href="eliminar.php?id=<?php echo $fila['id']; ?>" class="btn btn-danger">Inactivo</a> </td>
+                <td><a href="view/reportarse.php?id=<?php echo $fila['id']; ?>" class="btn btn-dark">Marcar Ingreso</a> </td>
+                <td><a href="view/reportar_salida.php?id=<?php echo $fila['id']; ?>" class="btn btn-dark">Marcar Salida</a> </td>
+                <td><a href="view/editar.php?id=<?php echo $fila['id']; ?>" class="btn btn-warning">Editar</a> </td>
+                <td><a href="controllers/eliminar.php?id=<?php echo $fila['id']; ?>" class="btn btn-danger">Inactivo</a> </td>
         }
 
             </tr>
@@ -84,11 +83,11 @@
     </table>
     
     <div class="boton" >
-        <a class="btn btn-dark w-100 mt-3" href="inactivos.php"> Empleados Inactivos</a>
+        <a class="btn btn-dark w-100 mt-3" href="view/inactivos.php"> Empleados Inactivos</a>
     </div>
 
     <div class="boton" >
-        <a class="btn btn-primary w-100 mt-1 mb-4" href="historial.php"> REPORTE EMPLEADOS </a>
+        <a class="btn btn-primary w-100 mt-1 mb-4" href="view/historial.php"> REPORTE EMPLEADOS </a>
     </div>
 
     </div>
