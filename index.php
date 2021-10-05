@@ -1,98 +1,102 @@
 <?php 
-    require 'models/conexion.php';
-    $sql = "SELECT id, nombre, apellido, ingreso, cedula FROM empleados WHERE estado=1 ";
-    $result = $mysqli->query($sql);
-
-    $dia = date('y-m-d');
-
+    require 'models/conexion-sql.php';
+    $sql = "SELECT id, nombres, apellidos, telefono, fecha_registro, estado FROM empleados";
+    $resultado = $mysqli->query($sql);
 ?>
 
-<!doctype html>
-<html lang="es">
-    <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <!-- Bootstrap CSS -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <link rel="stylesheet" href="css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" href="css/bootstrap-grid.min.css">
     <link rel="stylesheet" href="css/jquery.dataTables.min.css">
 
-    <script src="js/jquery-3.6.0.min.js"></script>
-    <script src="js/bootstrap.min.js"></script>
-    <script src="js/jquery.dataTables.min.js"></script>
-
-    <title>app web php</title>
+    <script src="js/jquery-3.6.0.min.js" ></script>
+    <script src="js/bootstrap.min.js" ></script>
+    <script src="js/jquery.dataTables.min.js" ></script>
 
     <script>
         $(document).ready(function() {
-        $('#tabla').DataTable();
-        } );
+            $('#example').DataTable();
+        });
     </script>
 
+    <title>Prueba t</title>
+</head>
+<body>
 
+    <div class="container mt-4">
+        <h2 class="text-center">Tabla de empleados</h2>
 
-    </head>
-    <body>
     
-
-    <div class="container" >
-
-    <div class="text-center" >
-        <h1>Empleados Activos</h1>
-    </div>
-
-    <div class="boton" >
-        <a href="view/nuevo.php" class="btn btn-success mt-1 mb-3" center>Registrarse</a>
-    </div>
-    
-
-    <table id="tabla" class="display" style="width:100%">
-        <thead>
-            <tr>
-                <th>Nombre</th>
-                <th>Apellido</th>
-                <th>Fecha de incorporacion</th>
-                <th>Dia</th>
-                <th>Hora Ingreso</th>
-                <th>Hora Salida</th>
-                <th></th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody>
-        <?php while($fila = $result->fetch_assoc()) { ?>
-            <tr>
-                <td><?php echo $fila['nombre']; ?> </td>
-                <td><?php echo $fila['apellido']; ?> </td>
-                <td><?php echo $fila['ingreso']; ?> </td>
-                <td><?php echo $dia ?> </td>
-                <td><a href="view/reportarse.php?id=<?php echo $fila['id']; ?>" class="btn btn-dark">Marcar Ingreso</a> </td>
-                <td><a href="view/reportar_salida.php?id=<?php echo $fila['id']; ?>" class="btn btn-dark">Marcar Salida</a> </td>
-                <td><a href="view/editar.php?id=<?php echo $fila['id']; ?>" class="btn btn-warning">Editar</a> </td>
-                <td><a href="controllers/eliminar.php?id=<?php echo $fila['id']; ?>" class="btn btn-danger">Inactivo</a> </td>
-        }
-
-            </tr>
-        <?php } ?>
-        </tbody>
+        <table id="example" class="display mt-3 table table-bordered border-success" style="width:100%">
+            <thead>
+                <tr>
+                    <th>Nombres</th>
+                    <th>Apellidos</th>
+                    <th>Telefono</th>
+                    <th>Fecha Registro</th>
+                    <th>Estado</th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php while($fila = $resultado->fetch_assoc()) { 
+                    if($fila['estado'] == 'Activo' ){  ?>
+                <tr>
+                    <td style="color: blue;" > <?php echo $fila['nombres'] ?> </td>
+                    <td style="color: blue;"> <?php echo $fila['apellidos'] ?> </td>
+                    <td style="color: blue;"> <?php echo $fila['telefono'] ?> </td>
+                    <td style="color: blue;"> <?php echo $fila['fecha_registro'] ?> </td>
+                    <td style="color: blue;"> <?php echo $fila['estado'] ?></td>
         
+                    <td>  <a class="btn btn-info" href="views/formulario_editar.php?id=
+                    <?php echo $fila['id'] ?>"> Editar</a> </td>
 
+                    <td>  <a class="btn btn-primary" href="views/tabla_reporte.php?id=
+                    <?php echo $fila['id']; ?>"> Reportarse</a> </td>
 
-    </table>
+                    <td>  <a class="btn btn-secondary">Eliminar</a> </td>
+                </tr>
+                <?php }else {?>
+                    <tr>
+                        <td style="color: red;"> <?php echo $fila['nombres'] ?> </td>
+                        <td style="color: red;"> <?php echo $fila['apellidos'] ?> </td>
+                        <td style="color: red;"> <?php echo $fila['telefono'] ?> </td>
+                        <td style="color: red;"> <?php echo $fila['fecha_registro'] ?> </td>
+                        <td style="color: red;"> <?php echo $fila['estado'] ?></td>
+                        
+                        <td>  <a class="btn btn-info" href="views/formulario_editar.php?id=<?php 
+                        echo $fila['id'];  ?>"> Editar</a> </td>
+
+                        <td> <a class="btn btn-secondary">Reportarse</a> </td>
+
+                        <td><a href="controllers/eliminar_usuario.php?id=<?php echo $fila['id'] ?>" 
+                        class="btn btn-danger">Eliminar</a></td>
+                    </tr>
+                <?php } }?>
+            </tbody>
+        </table>
+
+            <div class="row mt-3">
+                <div class="col">
+                    <a href="views/formulario-registro.php" 
+                    class="btn btn-success w-100">Registrarse</a> 
+                </div>
+                <div class="col">
+                    <a href="views/informe_reporte.php" class="btn btn-light border-success w-100">Ver Informe de registro</a>
+                </div>
+        </div>
+    </div>
+
     
-    <div class="boton" >
-        <a class="btn btn-dark w-100 mt-3" href="view/inactivos.php"> Empleados Inactivos</a>
-    </div>
-
-    <div class="boton" >
-        <a class="btn btn-primary w-100 mt-1 mb-4" href="view/historial.php"> REPORTE EMPLEADOS </a>
-    </div>
-
-    </div>
-
-    
-    <script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
-    </body>
+</body>
 </html>
